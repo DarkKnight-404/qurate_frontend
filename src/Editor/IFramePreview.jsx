@@ -22,7 +22,7 @@ function IframePreview({ htmlString }) {
     }
   }, [htmlString]);
 
-  return <iframe style={{ width: '100%', height: 'calc(98vh - 20px)', border: '1px solid #ccc', zIndex: 100 }} ref={iframeRef} className="w-full h-screen border" />;
+  return <iframe title="editor_container" style={{ width: '100%', height: 'calc(98vh - 20px)', border: '1px solid #ccc', zIndex: 100 }} ref={iframeRef} className="w-full h-screen border" />;
 }
 
 export default IframePreview;

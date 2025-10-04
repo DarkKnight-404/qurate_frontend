@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useState } from 'react';
-import Header from './Components/Header';
+import { useEffect, useMemo, useState } from 'react';
 import LeftNavBar from './Components/LeftNavBar';
 import Page from './Page';
 import GlobalVariables from './GlobalVariables.jsx';
 import Canvas from './Canvas.jsx';
-import { Text, Text2 } from './Elements.jsx';
+import { Text2 } from './Elements.jsx';
 
 
 function HtmlIframeRenderer() {
@@ -19,10 +18,14 @@ function HtmlIframeRenderer() {
     const [isVerScrollVisible, setVerScrollVisStatus] = useState(false);
     const API_BASE_URL = "https://qurate-backend.vercel.app";
 
-    let canvas = new Canvas(htmlStr, updateHtmlStr, element, updateElements, activeElement, updateActiveElement, setShowGallery, focusedElement, updateFocusedElement, elemetsStyle, updateElementsStyle, isVerScrollVisible,setVerScrollVisStatus);
+    let canvas = useMemo(()=>{
+        return new Canvas(htmlStr, updateHtmlStr, element, updateElements, activeElement, updateActiveElement, setShowGallery, focusedElement, updateFocusedElement, elemetsStyle, updateElementsStyle, isVerScrollVisible, setVerScrollVisStatus);
+    },[htmlStr, updateHtmlStr, element, updateElements, activeElement, updateActiveElement, setShowGallery, focusedElement, updateFocusedElement, elemetsStyle, updateElementsStyle, isVerScrollVisible, setVerScrollVisStatus]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         updateHtmlStr(canvas.getString());
-    }, [element])
+    }, [element,canvas])
 
 
 
@@ -33,10 +36,10 @@ function HtmlIframeRenderer() {
     // let textTwo = new Text("Hello World");
     // canvas.addElement(textTwo);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         updateHtmlStr(canvas.getString());
-        // alert(import.meta.env);
-    }, [elemetsStyle]);
+    }, [elemetsStyle,canvas]);
 
 
 

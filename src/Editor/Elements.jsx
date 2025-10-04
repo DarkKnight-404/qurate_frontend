@@ -438,40 +438,40 @@ class Text2 {
 }
 
 
-let elementsData = {
-    "component_0001": {
-        tag: "div",
-        id: "component_0001",
-        classNames: "production_container component_0001",
-        children: [
-            {
-                tag: "div",
-                id: "elegant_paragraph",
-                classNames: "production_container elegant-paragraph",
-                children: [
-                    {
-                        tag: "div",
-                        id: "elegant_paragraph_one",
-                        classNames: "production_container",
-                        innerText: "In the quiet moments of dawn, when the world is still wrapped in the soft embrace of twilight, we find the purest form of inspiration. The subtle transition from night to day mirrors our own journeys—each sunrise offering a blank canvas, a fresh beginning where possibilities are as limitless as the horizon."
-                    },
-                    {
-                        tag: "div",
-                        id: "elegant_paragraph_two",
-                        classNames: "production_container",
-                        innerText: "Great ideas often come unannounced, like unexpected guests at the door of consciousness. They arrive without fanfare, settling into the mind with gentle persistence, transforming ordinary thoughts into extraordinary visions."
-                    },
-                    {
-                        tag: "div",
-                        id: "elegant_paragraph_author",
-                        classNames: "production_container author",
-                        innerText: "— Eleanor Montague"
-                    }
-                ]
-            }
-        ]
-    }
-}
+// let elementsData = {
+//     "component_0001": {
+//         tag: "div",
+//         id: "component_0001",
+//         classNames: "production_container component_0001",
+//         children: [
+//             {
+//                 tag: "div",
+//                 id: "elegant_paragraph",
+//                 classNames: "production_container elegant-paragraph",
+//                 children: [
+//                     {
+//                         tag: "div",
+//                         id: "elegant_paragraph_one",
+//                         classNames: "production_container",
+//                         innerText: "In the quiet moments of dawn, when the world is still wrapped in the soft embrace of twilight, we find the purest form of inspiration. The subtle transition from night to day mirrors our own journeys—each sunrise offering a blank canvas, a fresh beginning where possibilities are as limitless as the horizon."
+//                     },
+//                     {
+//                         tag: "div",
+//                         id: "elegant_paragraph_two",
+//                         classNames: "production_container",
+//                         innerText: "Great ideas often come unannounced, like unexpected guests at the door of consciousness. They arrive without fanfare, settling into the mind with gentle persistence, transforming ordinary thoughts into extraordinary visions."
+//                     },
+//                     {
+//                         tag: "div",
+//                         id: "elegant_paragraph_author",
+//                         classNames: "production_container author",
+//                         innerText: "— Eleanor Montague"
+//                     }
+//                 ]
+//             }
+//         ]
+//     }
+// }
 
 
 class HtmlString {
@@ -532,7 +532,7 @@ class HtmlString {
 
 
                 let xml = new XMLHttpRequest();
-                xml.open("GET", "http://localhost:9600/getelementadderbyid/?id=" + elementId);
+                xml.open("GET", "https://qurate-backend.vercel.app/getelementadderbyid/?id=" + elementId);
                 xml.send();
                 xml.onload = () => {
                     let data = JSON.parse(xml.response);
@@ -589,7 +589,7 @@ class HtmlString {
         let elementId = element.id;
         let options = [{ id: "delete_element", display: "🗑️", style: "display: none;" }, { id: "left_align", display: "<", style: "align-items: left; justify-content: left" }, { id: "center_align", display: "=", style: "align-items: center; justify-content: center" }, { id: "right_align", display: ">", style: "align-items: right; justify-content: right" }];
         switch (elementId) {
-            case "h1" || "h2" || "h3" || 'h4' || 'h5' || 'h6' || 'p' || (element.innerText != "" || undefined):
+            case "h1" || "h2" || "h3" || 'h4' || 'h5' || 'h6' || 'p' || (element.innerText !== "" || undefined):
                 options = [
                     // Alignment
                     { id: "left_align", display: "⯇", style: "text-align: left;" },
@@ -763,7 +763,7 @@ class HtmlString {
 
             // Add onclick for interactive elements
             const clickableElements = ['button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div'];
-            if (clickableElements.includes(element.tag) && element.id && element.id != "main_container") {
+            if (clickableElements.includes(element.tag) && element.id && (element.id !== "main_container")) {
                 const location = parentId ? `${parentId}:${element.id}` : element.id;
                 elementStr += ` onclick='event.stopPropagation(); window.parent.postMessage({index: ${this.index}, location: "${location}", option: "setactiveelement"})'`;
             }
@@ -865,7 +865,7 @@ class Element {
                                     "innerText": "Revolutionize Your Workflow",
                                     "attributes": {
                                         "contenteditable": "true",
-                                        "onclick": "window.parent.postMessage({index: ${this.index}, location: \"herosection:hero_header\", option: \"setactiveelement\"})"
+                                        "onclick": `window.parent.postMessage({index: ${this.index}, location: 'herosection:hero_header', option: 'setactiveelement'})`
                                     },
                                     "children": []
                                 },
@@ -876,7 +876,7 @@ class Element {
                                     "innerText": "Boost productivity with our all-in-one solution. Seamless integration, powerful features, and intuitive design.",
                                     "attributes": {
                                         "contenteditable": "true",
-                                        "onclick": "window.parent.postMessage({index: ${this.index}, location: \"herosection:hero_para\", option: \"setactiveelement\"})"
+                                        "onclick": `window.parent.postMessage({index: ${this.index}, location: 'herosection:hero_para', option: 'setactiveelement'})`
                                     },
                                     "children": []
                                 },
@@ -886,7 +886,7 @@ class Element {
                                     "id": "hero_button",
                                     "innerText": "Get Started",
                                     "attributes": {
-                                        "onclick": "window.parent.postMessage({index: ${this.index}, location: \"herosection:hero_button\", option: \"setactiveelement\"})"
+                                        "onclick": `window.parent.postMessage({index: ${this.index}, location: 'herosection:hero_button', option: 'setactiveelement'})`
                                     },
                                     "children": []
                                 }
@@ -942,12 +942,14 @@ class Element {
 
 
 
+        console.log("event data is in element")
+        console.log(data);
 
 
 
         let location = "not_defined";
         let option = data.option;
-        let index = data.index;
+        // let index = data.index;
 
         if (data.location) {
             location = data.location.split(":")
@@ -1130,9 +1132,9 @@ class HeroSection extends Element {
 
     constructor(htmlMap) {
         super(htmlMap);
-        this.getToolbar = this.getToolbar;
-        this.handleOptionSelect = this.handleOptionSelect;
-        this.setState = this.setState;
+        // this.getToolbar = this.getToolbar;
+        // this.handleOptionSelect = this.handleOptionSelect;
+        // this.setState = this.setState;
         this.state = {
             gradientStart: '#ffffff',
             gradientEnd: '#000000',
@@ -1157,7 +1159,7 @@ class HeroSection extends Element {
 
         let location = "not_defined";
         let option = data.option;
-        let index = data.index;
+        // let index = data.index;
 
         if (data.location) {
             location = data.location.split(":")
@@ -1241,12 +1243,12 @@ class HeroSection extends Element {
 
 
     getToolbar() {
-        const handleMessage = (data) => {
-            window.parent.postMessage(data, "*");
-        };
-        const sendToolbarAction = (style) => {
-            handleMessage({ index: this.index, location: ("herosection:" + this.focusElement), option: "default_order_2:default_order_2", style: style });
-        };
+        // const handleMessage = (data) => {
+        //     window.parent.postMessage(data, "*");
+        // };
+        // const sendToolbarAction = (style) => {
+        //     handleMessage({ index: this.index, location: ("herosection:" + this.focusElement), option: "default_order_2:default_order_2", style: style });
+        // };
 
 
         return <>

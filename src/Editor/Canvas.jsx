@@ -1,4 +1,3 @@
-import { useRef, useEffect, useState } from "react";
 
 export default class Canvas {
     constructor(htmlString = ``, updateHtmlStr, elements, updateElements,activeElement, updateActiveElement, setShowGallert,focusedElement, updateFocusedElement,elemetsStyle,updateElementsStyle,isVerScrollVisible,setVerScrollVisStatus) {
@@ -20,7 +19,6 @@ export default class Canvas {
         this.setVerScrollVisStatus = setVerScrollVisStatus;
         this.productionStyle = `
         <style>
-
 
 
 
@@ -162,7 +160,7 @@ export default class Canvas {
 
 
       this.handleOptionSelect = this.handleOptionSelect.bind(this);
-      this.addElementStyle = this.addElementStyle;
+      // this.addElementStyle = this.addElementStyle;
       
 
     }
@@ -170,6 +168,8 @@ export default class Canvas {
 
 
   async handleOptionSelect(event){
+    console.log("event is as follows")
+    console.log(event);
 
     if(event.data.option === "rerender"){
       // alert("request recieved");
@@ -179,13 +179,13 @@ export default class Canvas {
 
 
 
-            let index = event.data.index;
+            // let index = event.data.index;
             let location = "not_defined";
             let option = event.data.option;
 
             if(event.data.location){
               location = event.data.location.split(":")
-              if(location.length != 2){
+              if(location.length !== 2){
               }
             }else{
               return;
@@ -274,6 +274,8 @@ function extractKeyframes(cssStr) {
 
         let str = ``;
 
+
+
         str+="<style>";
         str+=extractKeyframes(this.elementsStyle);
         str+="</style>";
@@ -289,6 +291,7 @@ function extractKeyframes(cssStr) {
 
         this.htmlString = str;
 
+        console.log(this.htmlString);
 
         return this.htmlString;
     }

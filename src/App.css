@@ -13,7 +13,9 @@
   color: white;
   text-decoration: none;
 }
-
+html{
+  overflow-y: hidden;
+}
 ._0000{
 
 }

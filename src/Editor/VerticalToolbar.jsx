@@ -26,7 +26,7 @@ const VerticalToolbar = ({ onStyleChange }) => {
     const [fontFamily, setFontFamily] = useState('');
     const [fontSize, setFontSize] = useState('');
 
-    let { activeElement, isVerScrollVisible, setVerScrollVisStatus } = useContext(GlobalVariables);
+    let { activeElement, setVerScrollVisStatus } = useContext(GlobalVariables);
 
     const toggleSection = (section) => {
         setExpandedSections(prev => ({

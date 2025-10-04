@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SearchIcon from '@mui/icons-material/Search';
 import { useContext } from 'react';
@@ -184,6 +184,16 @@ function LeftNavBar() {
 
   let [heroSection, updateHeroSection] = useState([]);
 
+  let [elementsData, updateElementsData] = useState({
+    "header_section": []
+  });
+
+
+  useEffect(() => {
+    console.log("element data updated");
+    console.log(elementsData);
+  }, [elementsData])
+
   return (
     <div style={{ zIndex: "1000", paddingTop: "30px", width: (optionSelected != null ? '600px' : '20px'), backgroundColor: '#f0f0f0', height: '100vh', position: 'fixed', padding: '10px', display: 'flex', flexDirection: 'row', gap: '20px', overflow: 'hidden', transition: 'width 0.3s ease' }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', width: '20px' }}>
@@ -212,8 +222,41 @@ function LeftNavBar() {
         </div>
 
       </div>
+
+
+      {/* left section options are here below */}
       <div style={{ width: 'fit-content', display: 'flex', flexDirection: 'column', gap: '10px', transition: 'width 0.3s ease' }}>
         <div style={{ marginTop: '20px', textAlign: 'center', color: '#555', width: '100%', minWidth: '100%' }}>
+          <div onClick={() => {
+            // canvas.addElement(new Text("Hello World"));
+            // canvas.addElement(new Text("Hello World2"));
+            // updateHtmlStr(canvas.getString());
+            // setOptionSelected(null);
+
+            if (elementsData["header_section"].length === 0) {
+              let xml = new XMLHttpRequest();
+              xml.open("GET", "https://qurate-backend.vercel.app/getComponentTemplates/?category=herosection");
+              xml.send();
+              xml.onload = () => {
+                updateHeroSection(JSON.parse(xml.response));
+                updateElementsData((prev) => {
+                  let newElementsData = { ...prev };
+                  newElementsData["header_section"] = JSON.parse(xml.response);
+                  return newElementsData;
+                })
+              }
+            }
+
+            setAddSubOption((prev) => {
+              if (prev === "header_section") {
+                return null;
+              }
+              return "header_section";
+            });
+          }} style={{ cursor: "pointer", border: "1px solid #ccc", padding: "5px 10px", borderRadius: "5px", width: "100%" }}>
+            Headers
+          </div>
+
           <div onClick={() => {
             // canvas.addElement(new Text("Hello World"));
             // canvas.addElement(new Text("Hello World2"));
@@ -269,8 +312,57 @@ function LeftNavBar() {
         </div>
       </div>
 
-
+      {/* let section rendered components which are loaded at click are rendered here below */}
       <div style={{ flex: 1, overflowY: "auto" }}>
+
+
+        <div style={{ width: (addSubOption === "header_section" ? '100%' : '0px'), display: (addSubOption === "header_section" ? '' : 'none'), overflow: 'hidden', transition: 'all 1s ease', paddingBottom: "50px" }}>
+
+          <h2 style={{ fontFamily: "Times New Roman", textAlign: "center" }}>Hero Section</h2>
+
+          {/* {JSON.stringify(elementsData["header_section"])} */}
+
+          {(elementsData["header_section"].length == 0) ? "loading" : elementsData["header_section"].map(val => {
+            return <>
+              <div onClick={() => {
+
+                let xml = new XMLHttpRequest();
+                xml.open("get", "https://qurate-backend.vercel.app/getcomponent/?id=" + val.id);
+                xml.send();
+                xml.onload = () => {
+                  let htmlElementMap = JSON.parse(xml.response);
+                  let heroSection = new HeroSection(
+                    {
+                      tag: "div",
+                      id: "main_container",
+                      classNames: `production_container ${htmlElementMap.id}`,
+                      children: [...htmlElementMap.htmlMap]
+                    }
+                    , val.initialStyle);
+                  canvas.addElement(heroSection);
+                  canvas.addElementStyle("." + htmlElementMap.id + htmlElementMap.style);
+                  heroSection.assignClass(val.id);
+                }
+
+
+                setOptionSelected(null);
+              }} style={{ borderBottom: "2px solid ", whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", fontStyle: "italic", display: "flex", justifyContent: "center", flexDirection: "column", paddingBottom: "20px" }}>
+
+
+
+                {val.name}
+                {val.img ? <>
+                  <img src={"Components//" + val.img} alt="" srcset="" style={{ width: "90%", margin: "auto" }} />
+                </> : <></>}
+              </div >
+
+              {/* <h2>Test</h2> */}
+            </>
+          })}
+
+        </div>
+
+
         <div style={{ width: (addSubOption === "text" ? '100%' : '0px'), display: (addSubOption === "text" ? '' : 'none'), overflow: 'hidden', transition: 'all 1s ease' }}>
           {textOptions.map((option, index) => (
             <div key={index} onClick={() => {

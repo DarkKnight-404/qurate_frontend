@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { HeroSection, Text2 } from './Elements.jsx';
-import Canvas from './Canvas.jsx';
+import { useContext, useEffect, useState } from 'react'
+// import { HeroSection, Text2 } from './Elements.jsx';
+// import Canvas from './Canvas.jsx';
 import GlobalVariables from './GlobalVariables.jsx';
 import ElementsAdder from './ElementsAdder.jsx';
 import IframePreview from './IFramePreview.jsx';
@@ -26,22 +26,24 @@ function Page() {
     //     // htmlCode = textOne.htmlString;   
 
     // }
-    let frameOneRef = useRef();
+    // let frameOneRef = useRef();
 
 
-    let { isVerScrollVisible, setVerScrollVisStatus, htmlStr, updateHtmlStr, canvas, activeElement, updateActiveElement, showGallery, setShowGallery } = useContext(GlobalVariables);
+    let { isVerScrollVisible, htmlStr, canvas, activeElement, showGallery, setShowGallery } = useContext(GlobalVariables);
     // let [] = useState(new Text2("test"));
 
-    let [tempHtmlString, updateTempHtmlString] = useState("");
+    let [updateTempHtmlString] = useState("");
 
     useEffect(() => {
         canvas.setShowGallert = setShowGallery;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         setTimeout(() => {
             updateTempHtmlString(htmlStr);
         }, 150);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [htmlStr]);
 
 
@@ -124,13 +126,14 @@ function Page() {
     // let textTwo = new Text("Hello World2");
     // canvas.addElement(textTwo);
 
-
+    
     useEffect(() => {
         window.addEventListener("message", canvas.handleOptionSelect);
 
         return () => {
             window.removeEventListener("message", canvas.handleOptionSelect);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps        
     }, [htmlStr]);
 
 
@@ -143,10 +146,10 @@ function Page() {
     }
 
 
-    let [scrollData, updateScrollData] = useState(frameOneRef.current?.offsetTop || 0);
-    useEffect(() => {
+    // let [scrollData, updateScrollData] = useState(frameOneRef.current?.offsetTop || 0);
+    // useEffect(() => {
 
-    }, [])
+    // }, [])
 
 
 

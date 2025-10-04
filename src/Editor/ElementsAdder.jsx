@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
 import GlobalVariables from './GlobalVariables.jsx';
-import { height, maxHeight, minHeight } from '@mui/system';
+// import { height, maxHeight, minHeight } from '@mui/system';
 
 
 function ElementsAdder({ onClose, onElementSelect }) {
     const [selectedCategory, setSelectedCategory] = useState('intro');
 
-    const { focusedElement, updateFocusedElement, canvas } = useContext(GlobalVariables)
+    const { focusedElement, canvas } = useContext(GlobalVariables)
 
     // let {css} = useContext(GlobalVariables);
 
@@ -31,106 +31,6 @@ function ElementsAdder({ onClose, onElementSelect }) {
 
 
     const styles = {
-        overlay: {
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.7)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            zIndex: 1000,
-        },
-        popup: {
-            backgroundColor: '#ffffffff',
-            borderRadius: '8px',
-            width: '80%',
-            maxWidth: '900px',
-            maxHeight: '80vh',
-            display: 'flex',
-            flexDirection: 'column',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
-            overflow: 'hidden',
-            height: '60vh',
-            minHeight: '80vh',
-            maxHeight: '800px'
-        },
-        header: {
-            padding: '16px',
-            backgroundColor: '#c7babaff',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            borderBottom: '1px solid #444',
-        },
-        title: {
-            margin: 0,
-            color: '#fff',
-            fontSize: '18px',
-            fontWeight: '600',
-        },
-        closeButton: {
-            background: 'none',
-            border: 'none',
-            color: '#fff',
-            fontSize: '20px',
-            cursor: 'pointer',
-            padding: '8px',
-        },
-        categories: {
-            display: 'flex',
-            overflowX: 'auto',
-            padding: '12px 16px',
-            backgroundColor: '#ffffffff',
-            gap: '8px',
-            height: 'fit-content',
-            height: '60px'
-        },
-        categoryButton: {
-            padding: '8px 16px',
-            borderRadius: '20px',
-            border: 'none',
-            backgroundColor: '#3a3a3a',
-            color: '#fff',
-            cursor: 'pointer',
-            whiteSpace: 'nowrap',
-            fontSize: '14px',
-        },
-        activeCategory: {
-            backgroundColor: '#0078d4',
-        },
-        gallery: {
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
-            gap: '16px',
-            padding: '20px',
-            overflowY: 'auto',
-        },
-        elementCard: {
-            backgroundColor: '#3a3a3a',
-            borderRadius: '6px',
-            overflow: 'hidden',
-            cursor: 'pointer',
-            minHeight: "200px",
-            transition: 'transform 0.2s',
-            ':hover': {
-                transform: 'scale(1.03)',
-            },
-        },
-        elementImage: {
-            width: '100%',
-            height: '120px',
-            objectFit: 'cover',
-            backgroundColor: '#444',
-        },
-        elementName: {
-            padding: '12px',
-            color: '#fff',
-            textAlign: 'center',
-            fontSize: '14px',
-        },
         overlay: {
             position: 'fixed',
             top: 0,
