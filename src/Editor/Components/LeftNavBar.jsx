@@ -3,7 +3,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SearchIcon from '@mui/icons-material/Search';
 import { useContext } from 'react';
 import GlobalVariables from '../GlobalVariables.jsx';
-import { HeroSection, Element, Text2 } from '../Elements.jsx';
+import { HeroSection, Text2 } from '../Elements.jsx';
 
 import ComputerIcon from '@mui/icons-material/Computer';
 import MobileScreenShareIcon from '@mui/icons-material/MobileScreenShare';
@@ -13,173 +13,178 @@ function LeftNavBar() {
 
 
   let [optionSelected, setOptionSelected] = React.useState(null);
-  let { htmlStr, updateHtmlStr, canvas } = useContext(GlobalVariables);
+  let { canvas } = useContext(GlobalVariables);
   let [addSubOption, setAddSubOption] = React.useState(null);
 
 
-  let [textOptions, setTextOptions] = React.useState([
-    {
-      name: "Italic Text",
-      classStyle: {
-        whiteSpace: "nowrap",
-        cursor: "pointer",
-        paddingTop: "10px",
-        width: "100%",
-        textAlign: "center",
-        fontStyle: "italic",
+  let [textOptions, setTextOptions] = React.useState([]);
+  useEffect(() => {
+    setTextOptions([
+      {
+        name: "Italic Text",
+        classStyle: {
+          whiteSpace: "nowrap",
+          cursor: "pointer",
+          paddingTop: "10px",
+          width: "100%",
+          textAlign: "center",
+          fontStyle: "italic",
+        },
+        cssStyle: "font-style: italic;",
+        selectedOption: "italic"
       },
-      cssStyle: "font-style: italic;",
-      selectedOption: "italic"
-    },
-    {
-      name: "Bold Text",
-      classStyle: {
-        whiteSpace: "nowrap",
-        cursor: "pointer",
-        paddingTop: "10px",
-        width: "100%",
-        textAlign: "center",
-        fontWeight: "bold",
+      {
+        name: "Bold Text",
+        classStyle: {
+          whiteSpace: "nowrap",
+          cursor: "pointer",
+          paddingTop: "10px",
+          width: "100%",
+          textAlign: "center",
+          fontWeight: "bold",
+        },
+        cssStyle: "font-weight: bold;",
+        selectedOption: "bold"
       },
-      cssStyle: "font-weight: bold;",
-      selectedOption: "bold"
-    },
-    {
-      name: "Underline Text",
-      classStyle: {
-        whiteSpace: "nowrap",
-        cursor: "pointer",
-        paddingTop: "10px",
-        width: "100%",
-        textAlign: "center",
-        textDecoration: "underline",
+      {
+        name: "Underline Text",
+        classStyle: {
+          whiteSpace: "nowrap",
+          cursor: "pointer",
+          paddingTop: "10px",
+          width: "100%",
+          textAlign: "center",
+          textDecoration: "underline",
+        },
+        cssStyle: "text-decoration: underline;",
+        selectedOption: "underline"
       },
-      cssStyle: "text-decoration: underline;",
-      selectedOption: "underline"
-    },
-    {
-      name: "Uppercase Text",
-      classStyle: {
-        whiteSpace: "nowrap",
-        cursor: "pointer",
-        paddingTop: "10px",
-        width: "100%",
-        textAlign: "center",
-        textTransform: "uppercase",
+      {
+        name: "Uppercase Text",
+        classStyle: {
+          whiteSpace: "nowrap",
+          cursor: "pointer",
+          paddingTop: "10px",
+          width: "100%",
+          textAlign: "center",
+          textTransform: "uppercase",
+        },
+        cssStyle: "text-transform: uppercase;",
+        selectedOption: null // passed directly as css string, not through handleOptionSelect
       },
-      cssStyle: "text-transform: uppercase;",
-      selectedOption: null // passed directly as css string, not through handleOptionSelect
-    },
-    {
-      name: "Shadow Left",
-      classStyle: {
-        whiteSpace: "nowrap",
-        cursor: "pointer",
-        paddingTop: "10px",
-        width: "100%",
-        textAlign: "center",
-        textShadow: "-2px 2px 4px rgba(0,0,0,0.3)",
+      {
+        name: "Shadow Left",
+        classStyle: {
+          whiteSpace: "nowrap",
+          cursor: "pointer",
+          paddingTop: "10px",
+          width: "100%",
+          textAlign: "center",
+          textShadow: "-2px 2px 4px rgba(0,0,0,0.3)",
+        },
+        cssStyle: "text-shadow: -2px 2px 4px rgba(0,0,0,0.3);",
+        selectedOption: null
       },
-      cssStyle: "text-shadow: -2px 2px 4px rgba(0,0,0,0.3);",
-      selectedOption: null
-    },
-    {
-      name: "Shadow Right",
-      classStyle: {
-        whiteSpace: "nowrap",
-        cursor: "pointer",
-        paddingTop: "10px",
-        width: "100%",
-        textAlign: "center",
-        textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+      {
+        name: "Shadow Right",
+        classStyle: {
+          whiteSpace: "nowrap",
+          cursor: "pointer",
+          paddingTop: "10px",
+          width: "100%",
+          textAlign: "center",
+          textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+        },
+        cssStyle: "text-shadow: 2px 2px 4px rgba(0,0,0,0.3);",
+        selectedOption: null
       },
-      cssStyle: "text-shadow: 2px 2px 4px rgba(0,0,0,0.3);",
-      selectedOption: null
-    },
-    {
-      name: "Gradient Text",
-      cssStyle: "background: linear-gradient(to right, red, blue); -webkit-background-clip: text; -webkit-text-fill-color: transparent;",
-      classStyle: {
-        background: "linear-gradient(to right, red, blue)",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent"
+      {
+        name: "Gradient Text",
+        cssStyle: "background: linear-gradient(to right, red, blue); -webkit-background-clip: text; -webkit-text-fill-color: transparent;",
+        classStyle: {
+          background: "linear-gradient(to right, red, blue)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent"
+        }
+      },
+      {
+        name: "Monospace Text",
+        cssStyle: "font-family: monospace;",
+        classStyle: {
+          fontFamily: "monospace"
+        }
+      },
+      {
+        name: "Highlighted Text",
+        cssStyle: "background-color: yellow;",
+        classStyle: {
+          backgroundColor: "yellow"
+        }
+      },
+      {
+        name: "Oblique Text",
+        cssStyle: "font-style: oblique;",
+        classStyle: {
+          fontStyle: "oblique"
+        }
+      },
+      {
+        name: "Uppercase Spaced Text",
+        cssStyle: "text-transform: uppercase; letter-spacing: 3px;",
+        classStyle: {
+          textTransform: "uppercase",
+          letterSpacing: "3px"
+        }
+      },
+      {
+        name: "Lowercase Italic Text",
+        cssStyle: "text-transform: lowercase; font-style: italic;",
+        classStyle: {
+          textTransform: "lowercase",
+          fontStyle: "italic"
+        }
+      },
+      {
+        name: "Glow Text",
+        cssStyle: "text-shadow: 0 0 5px #fff, 0 0 10px #0ff;",
+        classStyle: {
+          textShadow: "0 0 5px #fff, 0 0 10px #0ff"
+        }
+      },
+      {
+        name: "Blurred Text",
+        cssStyle: "color: transparent; text-shadow: 0 0 5px rgba(0,0,0,0.5);",
+        classStyle: {
+          color: "transparent",
+          textShadow: "0 0 5px rgba(0,0,0,0.5)"
+        }
+      },
+      {
+        name: "Thick Underline Text",
+        cssStyle: "text-decoration: underline; text-decoration-thickness: 3px;",
+        classStyle: {
+          textDecoration: "underline",
+          textDecorationThickness: "3px"
+        }
+      },
+      {
+        name: "Strikethrough Text",
+        cssStyle: "text-decoration: line-through;",
+        classStyle: {
+          textDecoration: "line-through"
+        }
+      },
+      {
+        name: "Skewed Text",
+        cssStyle: "transform: skewX(20deg)",
+        classStyle: {
+          transform: "skewX(20deg)",
+        }
       }
-    },
-    {
-      name: "Monospace Text",
-      cssStyle: "font-family: monospace;",
-      classStyle: {
-        fontFamily: "monospace"
-      }
-    },
-    {
-      name: "Highlighted Text",
-      cssStyle: "background-color: yellow;",
-      classStyle: {
-        backgroundColor: "yellow"
-      }
-    },
-    {
-      name: "Oblique Text",
-      cssStyle: "font-style: oblique;",
-      classStyle: {
-        fontStyle: "oblique"
-      }
-    },
-    {
-      name: "Uppercase Spaced Text",
-      cssStyle: "text-transform: uppercase; letter-spacing: 3px;",
-      classStyle: {
-        textTransform: "uppercase",
-        letterSpacing: "3px"
-      }
-    },
-    {
-      name: "Lowercase Italic Text",
-      cssStyle: "text-transform: lowercase; font-style: italic;",
-      classStyle: {
-        textTransform: "lowercase",
-        fontStyle: "italic"
-      }
-    },
-    {
-      name: "Glow Text",
-      cssStyle: "text-shadow: 0 0 5px #fff, 0 0 10px #0ff;",
-      classStyle: {
-        textShadow: "0 0 5px #fff, 0 0 10px #0ff"
-      }
-    },
-    {
-      name: "Blurred Text",
-      cssStyle: "color: transparent; text-shadow: 0 0 5px rgba(0,0,0,0.5);",
-      classStyle: {
-        color: "transparent",
-        textShadow: "0 0 5px rgba(0,0,0,0.5)"
-      }
-    },
-    {
-      name: "Thick Underline Text",
-      cssStyle: "text-decoration: underline; text-decoration-thickness: 3px;",
-      classStyle: {
-        textDecoration: "underline",
-        textDecorationThickness: "3px"
-      }
-    },
-    {
-      name: "Strikethrough Text",
-      cssStyle: "text-decoration: line-through;",
-      classStyle: {
-        textDecoration: "line-through"
-      }
-    },
-    {
-      name: "Skewed Text",
-      cssStyle: "transform: skewX(20deg)",
-      classStyle: {
-        transform: "skewX(20deg)",
-      }
-    }
-  ]);
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
 
 
   let [heroSection, updateHeroSection] = useState([]);
@@ -322,7 +327,7 @@ function LeftNavBar() {
 
           {/* {JSON.stringify(elementsData["header_section"])} */}
 
-          {(elementsData["header_section"].length == 0) ? "loading" : elementsData["header_section"].map(val => {
+          {(elementsData["header_section"].length === 0) ? "loading" : elementsData["header_section"].map(val => {
             return <>
               <div onClick={() => {
 
