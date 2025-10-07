@@ -183,7 +183,7 @@ function LeftNavBar() {
       }
     ]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  }, [])
 
 
 
@@ -240,7 +240,7 @@ function LeftNavBar() {
 
             if (elementsData["header_section"].length === 0) {
               let xml = new XMLHttpRequest();
-              xml.open("GET", "https://qurate-backend.vercel.app/getComponentTemplates/?category=herosection");
+              xml.open("GET", "https://qurate-backend.vercel.app/getComponentTemplates/?category=headersection");
               xml.send();
               xml.onload = () => {
                 updateHeroSection(JSON.parse(xml.response));
@@ -428,7 +428,7 @@ function LeftNavBar() {
 
                 {val.name}
                 {val.img ? <>
-                  <img src={"Components//" + val.img} alt="" srcset="" style={{ width: "90%", margin: "auto" }} />
+                  <img src={val.img.includes("http") ? val.img : ("Components//" + val.img)} alt="" srcset="" style={{ width: "90%", margin: "auto" }} />
                 </> : <></>}
               </div >
 

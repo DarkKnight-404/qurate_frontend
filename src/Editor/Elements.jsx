@@ -762,7 +762,7 @@ class HtmlString {
             }
 
             // Add onclick for interactive elements
-            const clickableElements = ['button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div'];
+            const clickableElements = ['button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'header', 'a', 'nav'];
             if (clickableElements.includes(element.tag) && element.id && (element.id !== "main_container")) {
                 const location = parentId ? `${parentId}:${element.id}` : element.id;
                 elementStr += ` onclick='event.stopPropagation(); window.parent.postMessage({index: ${this.index}, location: "${location}", option: "setactiveelement"})'`;
@@ -983,7 +983,10 @@ class Element {
                 return;
             }
             if (option === "setactiveelement") {
+                console.log("setting active element in element object");
                 this.focusElement = location[1];
+                console.log(this.focusElement)
+                
                 return;
             }
         }
@@ -1194,7 +1197,9 @@ class HeroSection extends Element {
                 this.addNewElement(data);
             }
             if (option === "setactiveelement") {
+                console.log("request recieved at the element to set active element from canvas ");
                 this.focusElement = location[1];
+                console.log(this.focusElement);
                 return;
             }
         }

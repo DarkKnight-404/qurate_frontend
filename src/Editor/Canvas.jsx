@@ -207,11 +207,21 @@ export default class Canvas {
 
             // operating on the event 
             if(option === "setactiveelement"){
+
+              console.log("setting active element");
+              console.log(event.data);
+              console.log(this.elements);
+
                 await this.updateActiveElement(this.elements[event.data.index]);
                 try {
                   await this.elements[event.data.index].handleOptionSelect(event.data);
                   this.updateHtmlStr(this.getString());
+                  console.log("data passed in to the element from canvas")
+                  console.log("Element is as folows")
+                  console.log(this.elements[event.data.index])
                 } catch (error) {
+                  console.log("error in passing event handler to the element from canvas")
+                  console.log(error)
                 }
                 return;
             }
@@ -291,7 +301,7 @@ function extractKeyframes(cssStr) {
 
         this.htmlString = str;
 
-        console.log(this.htmlString);
+        // console.log(this.htmlString);
 
         return this.htmlString;
     }

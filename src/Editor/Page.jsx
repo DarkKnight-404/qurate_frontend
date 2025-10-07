@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 // import { HeroSection, Text2 } from './Elements.jsx';
 // import Canvas from './Canvas.jsx';
 import GlobalVariables from './GlobalVariables.jsx';
@@ -32,19 +32,19 @@ function Page() {
     let { isVerScrollVisible, htmlStr, canvas, activeElement, showGallery, setShowGallery } = useContext(GlobalVariables);
     // let [] = useState(new Text2("test"));
 
-    let [updateTempHtmlString] = useState("");
+    // let [updateTempHtmlString] = useState("");
 
     useEffect(() => {
         canvas.setShowGallert = setShowGallery;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useEffect(() => {
-        setTimeout(() => {
-            updateTempHtmlString(htmlStr);
-        }, 150);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [htmlStr]);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         updateTempHtmlString(htmlStr);
+    //     }, 150);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [htmlStr]);
 
 
 
