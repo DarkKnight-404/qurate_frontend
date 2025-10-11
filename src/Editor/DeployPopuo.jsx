@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const DeployPopup = ({
     htmlString,
@@ -12,6 +13,8 @@ const DeployPopup = ({
     const [description, updateDescription] = useState("");
 
     const handleTabClick = (tab) => setActiveTab(tab);
+
+    const navigate = useNavigate();
 
     const handleDeploy = (e) => {
         e.preventDefault();
@@ -29,7 +32,7 @@ const DeployPopup = ({
 
     function deploySite() {
         let xml = new XMLHttpRequest();
-        xml.open("POST", "http://localhost:9600/createnewpage");
+        xml.open("POST", "https://qurate-backend.vercel.app/createnewpage");
         xml.send(JSON.stringify({
             htmlCode: htmlString,
             userId: "rohit314159",
@@ -38,7 +41,8 @@ const DeployPopup = ({
         }));
         xml.onload = ()=>{
             alert(xml.response);
-            window.location.url = "http://localhost:3000/dashboard";
+            navigate("/dashboard");
+            updateDeployPopupVisibility(false);
         }
     }
 
