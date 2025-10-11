@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   useEffect(()=>{
     let xml = new XMLHttpRequest();
-    xml.open("GET", "http://localhost:9600/sitescollection?userId=rohit314159");
+    xml.open("GET", "https://qurate-backend.vercel.app/sitescollection?userId=rohit314159");
     xml.send();
 
     xml.onload = ()=>{
@@ -91,13 +91,13 @@ const Dashboard = () => {
                 <td style={{ padding: "12px 15px" }}>{site.visits ?? "–"}</td>
                 <td style={{ padding: "12px 15px" }}>{site.lastDeployed}</td>
                 <td style={{ padding: "12px 15px" }}>
-                  <a href={`http://localhost:9600/sitebypageid?pageId=${site.pageId}`} target="_blank" rel="noopener noreferrer" style={{ color: "#6c63ff", textDecoration: "none" }}>
-                    {`http://localhost:9600/sitebypageid?pageId=${site.pageId}`}
+                  <a href={`https://qurate-backend.vercel.app/sitebypageid?pageId=${site.pageId}`} target="_blank" rel="noopener noreferrer" style={{ color: "#6c63ff", textDecoration: "none" }}>
+                    {`https://qurate-backend.vercel.app/sitebypageid?pageId=${site.pageId}`}
                   </a>
                 </td>
                 <td style={{ padding: "12px 15px" }}>
                   <img
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://http://localhost:9600/sitebypageid?pageId=${site.pageId}`}
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://https://qurate-backend.vercel.app/sitebypageid?pageId=${site.pageId}`}
                     alt="QR"
                     style={{ width: "30px", height: "30px", cursor: "pointer", transition: "transform 0.2s" }}
                     onClick={() => setQrModal(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://${site.url}`)}
