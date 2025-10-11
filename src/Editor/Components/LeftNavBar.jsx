@@ -3,12 +3,13 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SearchIcon from '@mui/icons-material/Search';
 import { useContext } from 'react';
 import GlobalVariables from '../GlobalVariables.jsx';
-import { HeroSection, Text2 } from '../Elements.jsx';
+import { HeroSection } from '../Elements.jsx';
 
 import ComputerIcon from '@mui/icons-material/Computer';
 import MobileScreenShareIcon from '@mui/icons-material/MobileScreenShare';
+import { useNavigate } from 'react-router-dom';
 
-function LeftNavBar() {
+function LeftNavBar({updateDeployPopupVisibility,updateHtmlDeploymentStr}) {
 
 
 
@@ -16,181 +17,23 @@ function LeftNavBar() {
   let { canvas } = useContext(GlobalVariables);
   let [addSubOption, setAddSubOption] = React.useState(null);
 
-
-  let [textOptions, setTextOptions] = React.useState([]);
-  useEffect(() => {
-    setTextOptions([
-      {
-        name: "Italic Text",
-        classStyle: {
-          whiteSpace: "nowrap",
-          cursor: "pointer",
-          paddingTop: "10px",
-          width: "100%",
-          textAlign: "center",
-          fontStyle: "italic",
-        },
-        cssStyle: "font-style: italic;",
-        selectedOption: "italic"
-      },
-      {
-        name: "Bold Text",
-        classStyle: {
-          whiteSpace: "nowrap",
-          cursor: "pointer",
-          paddingTop: "10px",
-          width: "100%",
-          textAlign: "center",
-          fontWeight: "bold",
-        },
-        cssStyle: "font-weight: bold;",
-        selectedOption: "bold"
-      },
-      {
-        name: "Underline Text",
-        classStyle: {
-          whiteSpace: "nowrap",
-          cursor: "pointer",
-          paddingTop: "10px",
-          width: "100%",
-          textAlign: "center",
-          textDecoration: "underline",
-        },
-        cssStyle: "text-decoration: underline;",
-        selectedOption: "underline"
-      },
-      {
-        name: "Uppercase Text",
-        classStyle: {
-          whiteSpace: "nowrap",
-          cursor: "pointer",
-          paddingTop: "10px",
-          width: "100%",
-          textAlign: "center",
-          textTransform: "uppercase",
-        },
-        cssStyle: "text-transform: uppercase;",
-        selectedOption: null // passed directly as css string, not through handleOptionSelect
-      },
-      {
-        name: "Shadow Left",
-        classStyle: {
-          whiteSpace: "nowrap",
-          cursor: "pointer",
-          paddingTop: "10px",
-          width: "100%",
-          textAlign: "center",
-          textShadow: "-2px 2px 4px rgba(0,0,0,0.3)",
-        },
-        cssStyle: "text-shadow: -2px 2px 4px rgba(0,0,0,0.3);",
-        selectedOption: null
-      },
-      {
-        name: "Shadow Right",
-        classStyle: {
-          whiteSpace: "nowrap",
-          cursor: "pointer",
-          paddingTop: "10px",
-          width: "100%",
-          textAlign: "center",
-          textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
-        },
-        cssStyle: "text-shadow: 2px 2px 4px rgba(0,0,0,0.3);",
-        selectedOption: null
-      },
-      {
-        name: "Gradient Text",
-        cssStyle: "background: linear-gradient(to right, red, blue); -webkit-background-clip: text; -webkit-text-fill-color: transparent;",
-        classStyle: {
-          background: "linear-gradient(to right, red, blue)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent"
-        }
-      },
-      {
-        name: "Monospace Text",
-        cssStyle: "font-family: monospace;",
-        classStyle: {
-          fontFamily: "monospace"
-        }
-      },
-      {
-        name: "Highlighted Text",
-        cssStyle: "background-color: yellow;",
-        classStyle: {
-          backgroundColor: "yellow"
-        }
-      },
-      {
-        name: "Oblique Text",
-        cssStyle: "font-style: oblique;",
-        classStyle: {
-          fontStyle: "oblique"
-        }
-      },
-      {
-        name: "Uppercase Spaced Text",
-        cssStyle: "text-transform: uppercase; letter-spacing: 3px;",
-        classStyle: {
-          textTransform: "uppercase",
-          letterSpacing: "3px"
-        }
-      },
-      {
-        name: "Lowercase Italic Text",
-        cssStyle: "text-transform: lowercase; font-style: italic;",
-        classStyle: {
-          textTransform: "lowercase",
-          fontStyle: "italic"
-        }
-      },
-      {
-        name: "Glow Text",
-        cssStyle: "text-shadow: 0 0 5px #fff, 0 0 10px #0ff;",
-        classStyle: {
-          textShadow: "0 0 5px #fff, 0 0 10px #0ff"
-        }
-      },
-      {
-        name: "Blurred Text",
-        cssStyle: "color: transparent; text-shadow: 0 0 5px rgba(0,0,0,0.5);",
-        classStyle: {
-          color: "transparent",
-          textShadow: "0 0 5px rgba(0,0,0,0.5)"
-        }
-      },
-      {
-        name: "Thick Underline Text",
-        cssStyle: "text-decoration: underline; text-decoration-thickness: 3px;",
-        classStyle: {
-          textDecoration: "underline",
-          textDecorationThickness: "3px"
-        }
-      },
-      {
-        name: "Strikethrough Text",
-        cssStyle: "text-decoration: line-through;",
-        classStyle: {
-          textDecoration: "line-through"
-        }
-      },
-      {
-        name: "Skewed Text",
-        cssStyle: "transform: skewX(20deg)",
-        classStyle: {
-          transform: "skewX(20deg)",
-        }
-      }
-    ]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const navigate = useNavigate();
 
 
 
+
+
+
+  const templatesData = [{ id: "headersection", name: "Header Section" }, { id: "herosection", name: "Hero Section" }, { id: "gallerysection", name: "Gallery Section" },{ id: "servicessection", name: "Service Section" }];
   let [heroSection, updateHeroSection] = useState([]);
 
+
   let [elementsData, updateElementsData] = useState({
-    "header_section": []
+    "header_section": [],
+    "headersection": [],
+    "herosection": [],
+    "servicessection": [],
+    "gallerysection": [],
   });
 
 
@@ -225,6 +68,19 @@ function LeftNavBar() {
         <div>
           <MobileScreenShareIcon style={{ color: "black" }} />
         </div>
+        <div>
+          <MobileScreenShareIcon style={{ color: "black" }} onClick={()=>{navigate("/dashboard")}}/>
+        </div>
+
+        <div style={{ marginTop: "100px" }} onClick={() => {
+          let str = canvas.genProductionHtml();
+          console.log(str);
+          // navigator.clipboard.writeText(str);
+          updateHtmlDeploymentStr(str);
+          updateDeployPopupVisibility(true);
+        }} >
+          <AddCircleOutlineIcon style={{ cursor: 'pointer', fontSize: '30px', color: '#555' }} />
+        </div>
 
       </div>
 
@@ -232,88 +88,42 @@ function LeftNavBar() {
       {/* left section options are here below */}
       <div style={{ width: 'fit-content', display: 'flex', flexDirection: 'column', gap: '10px', transition: 'width 0.3s ease' }}>
         <div style={{ marginTop: '20px', textAlign: 'center', color: '#555', width: '100%', minWidth: '100%' }}>
-          <div onClick={() => {
-            // canvas.addElement(new Text("Hello World"));
-            // canvas.addElement(new Text("Hello World2"));
-            // updateHtmlStr(canvas.getString());
-            // setOptionSelected(null);
+          
 
-            if (elementsData["header_section"].length === 0) {
-              let xml = new XMLHttpRequest();
-              xml.open("GET", "https://qurate-backend.vercel.app/getComponentTemplates/?category=headersection");
-              xml.send();
-              xml.onload = () => {
-                updateHeroSection(JSON.parse(xml.response));
-                updateElementsData((prev) => {
-                  let newElementsData = { ...prev };
-                  newElementsData["header_section"] = JSON.parse(xml.response);
-                  return newElementsData;
-                })
-              }
-            }
+          {templatesData.map((data, ind) => {
+            return <div onClick={() => {
+              // canvas.addElement(new Text("Hello World"));
+              // canvas.addElement(new Text("Hello World2"));
+              // updateHtmlStr(canvas.getString());
+              // setOptionSelected(null);
 
-            setAddSubOption((prev) => {
-              if (prev === "header_section") {
-                return null;
+              if (elementsData[data.id].length === 0) {
+                let xml = new XMLHttpRequest();
+                xml.open("GET", `https://qurate-backend.vercel.app/getComponentTemplates/?category=${data.id}`);
+                xml.send();
+                xml.onload = () => {
+                  updateHeroSection(JSON.parse(xml.response));
+                  updateElementsData((prev) => {
+                    let newElementsData = { ...prev };
+                    newElementsData[data.id] = JSON.parse(xml.response);
+                    return newElementsData;
+                  })
+                }
               }
-              return "header_section";
-            });
-          }} style={{ cursor: "pointer", border: "1px solid #ccc", padding: "5px 10px", borderRadius: "5px", width: "100%" }}>
-            Headers
-          </div>
 
-          <div onClick={() => {
-            // canvas.addElement(new Text("Hello World"));
-            // canvas.addElement(new Text("Hello World2"));
-            // updateHtmlStr(canvas.getString());
-            // setOptionSelected(null);
-            setAddSubOption((prev) => {
-              if (prev === "text") {
-                return null;
-              }
-              return "text";
-            });
-          }} style={{ cursor: "pointer", border: "1px solid #ccc", padding: "5px 10px", borderRadius: "5px", width: "100%" }}>
-            Text
-          </div>
-          <div onClick={() => {
-            // canvas.addElement(new Text("Hello World"));
-            // canvas.addElement(new Text("Hello World2"));
-            // updateHtmlStr(canvas.getString());
-            // setOptionSelected(null);
-            setAddSubOption((prev) => {
-              if (prev === "gallery") {
-                return null;
-              }
-              return "gallery";
-            });
-          }} style={{ cursor: "pointer", border: "1px solid #ccc", padding: "5px 10px", borderRadius: "5px", width: "100%" }}>
-            Gallery
-          </div>
-          <div onClick={() => {
-            // canvas.addElement(new Text("Hello World"));
-            // canvas.addElement(new Text("Hello World2"));
-            // updateHtmlStr(canvas.getString());
-            // setOptionSelected(null);
+              setAddSubOption((prev) => {
+                if (prev === data.id) {
+                  return null;
+                }
+                return data.id;
+              });
+            }} style={{ cursor: "pointer", border: "1px solid #ccc", padding: "5px 10px", borderRadius: "5px", width: "100%" }}>
+              {data.name}
+            </div>
+          })}
 
-            if (heroSection.length === 0) {
-              let xml = new XMLHttpRequest();
-              xml.open("GET", "https://qurate-backend.vercel.app/getComponentTemplates/?category=herosection");
-              xml.send();
-              xml.onload = () => {
-                updateHeroSection(JSON.parse(xml.response));
-              }
-            }
 
-            setAddSubOption((prev) => {
-              if (prev === "hero_section") {
-                return null;
-              }
-              return "hero_section";
-            });
-          }} style={{ cursor: "pointer", border: "1px solid #ccc", padding: "5px 10px", borderRadius: "5px", width: "100%" }}>
-            Hero Section
-          </div>
+          
         </div>
       </div>
 
@@ -321,122 +131,151 @@ function LeftNavBar() {
       <div style={{ flex: 1, overflowY: "auto" }}>
 
 
-        <div style={{ width: (addSubOption === "header_section" ? '100%' : '0px'), display: (addSubOption === "header_section" ? '' : 'none'), overflow: 'hidden', transition: 'all 1s ease', paddingBottom: "50px" }}>
+        {templatesData.map((data, ind) => {
+          return <div style={{ width: (addSubOption === data.id ? '100%' : '0px'), display: (addSubOption === data.id ? '' : 'none'), overflow: 'hidden', transition: 'all 1s ease', paddingBottom: "50px" }}>
 
-          <h2 style={{ fontFamily: "Times New Roman", textAlign: "center" }}>Hero Section</h2>
+            <h2 style={{ fontFamily: "Times New Roman", textAlign: "center" }}>Hero Section</h2>
 
-          {/* {JSON.stringify(elementsData["header_section"])} */}
+            {/* {JSON.stringify(elementsData[data.id])} */}
 
-          {(elementsData["header_section"].length === 0) ? "loading" : elementsData["header_section"].map(val => {
-            return <>
-              <div onClick={() => {
+{elementsData[data.id].length === 0
+  ? "loading"
+  : elementsData[data.id].map((val) => (
+      <div
+        key={val.id}
+        onClick={async () => {
+          try {
+            // ✅ Use fetch instead of XMLHttpRequest
+            const res = await fetch(
+              "https://qurate-backend.vercel.app/getcomponent/?id=" + val.id
+            );
+            const htmlElementMap = await res.json();
 
-                let xml = new XMLHttpRequest();
-                xml.open("get", "https://qurate-backend.vercel.app/getcomponent/?id=" + val.id);
-                xml.send();
-                xml.onload = () => {
-                  let htmlElementMap = JSON.parse(xml.response);
-                  let heroSection = new HeroSection(
-                    {
-                      tag: "div",
-                      id: "main_container",
-                      classNames: `production_container ${htmlElementMap.id}`,
-                      children: [...htmlElementMap.htmlMap]
-                    }
-                    , val.initialStyle);
-                  canvas.addElement(heroSection);
-                  canvas.addElementStyle("." + htmlElementMap.id + htmlElementMap.style);
-                  heroSection.assignClass(val.id);
+            const heroSection = new HeroSection(
+              {
+                tag: "div",
+                id: "main_container",
+                uid: htmlElementMap.id,
+                classNames: `production_container ${htmlElementMap.id}`,
+                children: [...htmlElementMap.htmlMap],
+              },
+              val.initialStyle
+            );
+
+            let style = htmlElementMap.style;
+
+            // ✅ Rename class function
+            function renameClass(cssString, oldClass, newClass) {
+              const escapedOldClass = oldClass.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+              // Match .oldClass when it's part of a selector (before { or , or : or space)
+              const regex = new RegExp(`\\.${escapedOldClass}(?=[\\s\\.{:#>\\[,]|\\{|$)`, "g");
+
+              return cssString.replace(regex, `.${newClass}`);
+            }
+
+            function renameId(cssString, oldId, newId) {
+              // Escape special characters in the old ID
+              const escapedOldId = oldId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+              // Match #oldId when it's part of a selector (before { or , or : or space)
+              const regex = new RegExp(`#${escapedOldId}(?=[\\s\\.{:#>\\[,]|\\{|$)`, "g");
+
+              return cssString.replace(regex, `#${newId}`);
+            }
+
+            // ✅ Recursive class renamer
+            function unifyIds() {
+              console.log("class names for root");
+              console.log(htmlElementMap.htmlMap[0].classNames)
+              let finalStyle = style;
+
+              let rootClassNames = htmlElementMap.htmlMap[0].classNames.split(" ");
+              for(let i=0;i<rootClassNames.length;i++){
+                if(rootClassNames[i] !== "production_container"){
+                  finalStyle = renameClass(finalStyle, rootClassNames[i], rootClassNames[i] + htmlElementMap.id);
                 }
+              }
 
+              function updateIds(element) {
+                if (!element || !element.children?.length) return;
 
-                setOptionSelected(null);
-              }} style={{ borderBottom: "2px solid ", whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", fontStyle: "italic", display: "flex", justifyContent: "center", flexDirection: "column", paddingBottom: "20px" }}>
+                element.children.forEach((child) => {
 
-
-
-                {val.name}
-                {val.img ? <>
-                  <img src={"Components//" + val.img} alt="" srcset="" style={{ width: "90%", margin: "auto" }} />
-                </> : <></>}
-              </div >
-
-              {/* <h2>Test</h2> */}
-            </>
-          })}
-
-        </div>
-
-
-        <div style={{ width: (addSubOption === "text" ? '100%' : '0px'), display: (addSubOption === "text" ? '' : 'none'), overflow: 'hidden', transition: 'all 1s ease' }}>
-          {textOptions.map((option, index) => (
-            <div key={index} onClick={() => {
-              let textOne = new Text2("Hello World1");
-              canvas.addElement(textOne);
-              textOne.assignStyle("main", option.cssStyle);
-              setOptionSelected(null);
-            }} style={{ ...option.classStyle, textAlign: "center", marginTop: "10px", cursor: "pointer" }}>{option.name}</div>
-          ))}
-        </div>
-
-
-        <div style={{ width: (addSubOption === "gallery" ? '100%' : '0px'), display: (addSubOption === "gallery" ? '' : 'none'), overflow: 'hidden', transition: 'all 1s ease' }}>
-          <div style={{ whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", fontStyle: "italic" }}>Italic Text</div>
-          <div style={{ whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", fontWeight: "bold" }}>Bold Text</div>
-          <div style={{ whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", textDecoration: "underline" }}>Underline Text</div>
-          <div style={{ whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", textTransform: "uppercase" }}>Uppercase Text</div>
-          <div style={{ whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", textShadow: "-2px 2px 4px rgba(0,0,0,0.3)" }}>Shadow Left</div>
-          <div style={{ whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", textShadow: "2px 2px 4px rgba(0,0,0,0.3)" }}>Shadow Right</div>
-          <div style={{ whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", color: "transparent", WebkitTextStroke: "1px black" }}>Outlined Text</div>
-          <div style={{ whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", background: "linear-gradient(to right, red, blue)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Gradient Text</div>
-          <div style={{ whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", fontFamily: "monospace" }}>Monospace Text</div>
-          <div style={{ whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", backgroundColor: "yellow" }}>Highlighted Text</div>
-
-        </div>
-
-        <div style={{ width: (addSubOption === "hero_section" ? '100%' : '0px'), display: (addSubOption === "hero_section" ? '' : 'none'), overflow: 'hidden', transition: 'all 1s ease', paddingBottom: "50px" }}>
-
-          <h2 style={{ fontFamily: "Times New Roman", textAlign: "center" }}>Hero Section</h2>
-
-          {heroSection.map(val => {
-            return <>
-              <div onClick={() => {
-
-                let xml = new XMLHttpRequest();
-                xml.open("get", "https://qurate-backend.vercel.app/getcomponent/?id=" + val.id);
-                xml.send();
-                xml.onload = () => {
-                  let htmlElementMap = JSON.parse(xml.response);
-                  let heroSection = new HeroSection(
-                    {
-                      tag: "div",
-                      id: "main_container",
-                      classNames: `production_container ${htmlElementMap.id}`,
-                      children: [...htmlElementMap.htmlMap]
+                  finalStyle = renameId(
+                    finalStyle,
+                    child.id,
+                    child.id + htmlElementMap.id
+                  );
+                  
+                  child.classNames.split(" ").forEach((className) => {
+                    if (className !== "production_container") {
+                      finalStyle = renameClass(
+                        finalStyle,
+                        className,
+                        className + htmlElementMap.id
+                      );
                     }
-                    , val.initialStyle);
-                  canvas.addElement(heroSection);
-                  canvas.addElementStyle("." + htmlElementMap.id + htmlElementMap.style);
-                  heroSection.assignClass(val.id);
-                }
+                  });
+                  updateIds(child);
+                });
+              }
+
+              updateIds(htmlElementMap.htmlMap[0]);
+              return finalStyle;
+            }
+
+            // ✅ Wait for recursion (even though it’s sync)
+            let styleUid = unifyIds();
+            styleUid = styleUid.trim();
+            if (styleUid.startsWith("{")) styleUid = styleUid.slice(1);
+            if (styleUid.endsWith("}")) styleUid = styleUid.slice(0, -1);
+
+            console.log("final style is", styleUid);
 
 
-                setOptionSelected(null);
-              }} style={{ borderBottom: "2px solid ", whiteSpace: "nowrap", cursor: "pointer", paddingTop: "10px", width: "100%", textAlign: "center", fontStyle: "italic", display: "flex", justifyContent: "center", flexDirection: "column", paddingBottom: "20px" }}>
+            // ✅ Add to canvas after style is ready
+            canvas.addElement(heroSection);
+            canvas.addElementStyle(styleUid);
+            heroSection.assignClass(val.id);
+
+            setOptionSelected(null);
+          } catch (err) {
+            console.error("Error loading component:", err);
+          }
+        }}
+        style={{
+          borderBottom: "2px solid",
+          whiteSpace: "nowrap",
+          cursor: "pointer",
+          paddingTop: "10px",
+          width: "100%",
+          textAlign: "center",
+          fontStyle: "italic",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          paddingBottom: "20px",
+        }}
+      >
+        {heroSection ? "" : ""}
+        {val.name}
+        {val.img ? (
+          <img
+            src={val.img.includes("http") ? val.img : "Components//" + val.img}
+            alt=""
+            style={{ width: "90%", margin: "auto" }}
+          />
+        ) : null}
+      </div>
+    ))}
 
 
+          </div>
+        })}
 
-                {val.name}
-                {val.img ? <>
-                  <img src={val.img.includes("http") ? val.img : ("Components//" + val.img)} alt="" srcset="" style={{ width: "90%", margin: "auto" }} />
-                </> : <></>}
-              </div >
 
-              {/* <h2>Test</h2> */}
-            </>
-          })}
-
-        </div>
+        
       </div>
     </div >
   )

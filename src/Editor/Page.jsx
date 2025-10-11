@@ -177,7 +177,7 @@ function Page() {
                 srcDoc={htmlStr}
             /> */}
 
-            <div style={{ display: "flex", zIndex: -1000, flex: 1, flexDirection: "row", marginTop: "calc(2vh + 20px)", overflow: "hidden" }}>
+            <div style={{ display: "flex", zIndex: -1000, flex: 1, flexDirection: "row", marginTop: "0px", overflow: "hidden" }}>
                 <IframePreview htmlString={htmlStr} />
 
                 <div className='scroll_down_editor' style={{ width: (isVerScrollVisible ? '25%' : `0px`) ,transition: "width 0.5s ease-out"}}>

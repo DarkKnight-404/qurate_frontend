@@ -4,6 +4,8 @@ import Page from './Page';
 import GlobalVariables from './GlobalVariables.jsx';
 import Canvas from './Canvas.jsx';
 import { Text2 } from './Elements.jsx';
+import DeployPopup from './DeployPopuo.jsx';
+import ImageContainer from './ImageContainer.jsx';
 
 
 function HtmlIframeRenderer() {
@@ -16,10 +18,12 @@ function HtmlIframeRenderer() {
     const [focusedElement, updateFocusedElement] = useState(undefined);
     const [elemetsStyle, updateElementsStyle] = useState("");
     const [isVerScrollVisible, setVerScrollVisStatus] = useState(false);
+    const [callbackUrlUpdate, updateCallbackUrlUpdate] = useState(null);
+    const [imagesContainerVisible, setImagesContainerVisible] = useState(false);
     const API_BASE_URL = "https://qurate-backend.vercel.app";
 
     let canvas = useMemo(()=>{
-        return new Canvas(htmlStr, updateHtmlStr, element, updateElements, activeElement, updateActiveElement, setShowGallery, focusedElement, updateFocusedElement, elemetsStyle, updateElementsStyle, isVerScrollVisible, setVerScrollVisStatus);
+        return new Canvas(htmlStr, updateHtmlStr, element, updateElements, activeElement, updateActiveElement, setShowGallery, focusedElement, updateFocusedElement, elemetsStyle, updateElementsStyle, isVerScrollVisible, setVerScrollVisStatus, setImagesContainerVisible, updateCallbackUrlUpdate);
     },[htmlStr, updateHtmlStr, element, updateElements, activeElement, updateActiveElement, setShowGallery, focusedElement, updateFocusedElement, elemetsStyle, updateElementsStyle, isVerScrollVisible, setVerScrollVisStatus]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,6 +45,10 @@ function HtmlIframeRenderer() {
         updateHtmlStr(canvas.getString());
     }, [elemetsStyle,canvas]);
 
+    const [isDeployPopupVisible, updateDeployPopupVisibility] = useState(false);
+    const [htmlDeploymentStr, updateHtmlDeploymentStr] = useState("");
+
+
 
 
     return (
@@ -54,11 +62,13 @@ function HtmlIframeRenderer() {
 
             <GlobalVariables.Provider value={{ API_BASE_URL, isVerScrollVisible, setVerScrollVisStatus, htmlStr, updateHtmlStr, canvas, activeElement, updateActiveElement, showGallery, setShowGallery, focusedElement, updateFocusedElement }}>
                 {/* <Header /> */}
+                <ImageContainer callbackUrlUpdate={callbackUrlUpdate} imagesContainerVisible={imagesContainerVisible} setImageContainerVisibility={setImagesContainerVisible}  />
+                <DeployPopup isDeployPopupVisible={isDeployPopupVisible} updateDeployPopupVisibility={updateDeployPopupVisibility} htmlString={htmlDeploymentStr} />
 
                 <div style={{ display: 'flex' }}>
 
-                    <LeftNavBar />
-                    <div style={{ flexGrow: 1, marginLeft: '40px' }}>
+                    <LeftNavBar updateDeployPopupVisibility={updateDeployPopupVisibility} updateHtmlDeploymentStr={updateHtmlDeploymentStr} />
+                    <div style={{ flexGrow: 1, marginLeft: '40px', overflowX: "hidden" }}>
                         <Page />
                     </div>
                 </div>

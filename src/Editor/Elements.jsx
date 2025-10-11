@@ -371,7 +371,7 @@ class Text2 {
 
         if (this.index === -1) {
             return <>
-                <div className="text_toolbar">
+                <div className="text_toolbar" style={{ display: "none" }}>
                     <div class="toolbar">
                         Welcome To Prometheus
                     </div>
@@ -588,110 +588,52 @@ class HtmlString {
     getOptions(element) {
         let elementId = element.id;
         let options = [{ id: "delete_element", display: "🗑️", style: "display: none;" }, { id: "left_align", display: "<", style: "align-items: left; justify-content: left" }, { id: "center_align", display: "=", style: "align-items: center; justify-content: center" }, { id: "right_align", display: ">", style: "align-items: right; justify-content: right" }];
-        switch (elementId) {
-            case "h1" || "h2" || "h3" || 'h4' || 'h5' || 'h6' || 'p' || (element.innerText !== "" || undefined):
-                options = [
-                    // Alignment
-                    { id: "left_align", display: "⯇", style: "text-align: left;" },
-                    { id: "center_align", display: "≡", style: "text-align: center;" },
-                    { id: "right_align", display: "⯈", style: "text-align: right;" },
-                    { id: "justify", display: "≋", style: "text-align: justify;" },
 
-                    // Font style
-                    { id: "bold", display: "B", style: "font-weight: bold;" },
-                    { id: "italic", display: "I", style: "font-style: italic;" },
-                    { id: "underline", display: "U", style: "text-decoration: underline;" },
-                    { id: "strike", display: "S̶", style: "text-decoration: line-through;" },
-
-                    // Transform
-                    { id: "uppercase", display: "A↑", style: "text-transform: uppercase;" },
-                    { id: "lowercase", display: "a↓", style: "text-transform: lowercase;" },
-                    { id: "capitalize", display: "Aa", style: "text-transform: capitalize;" },
-
-                    // Effects
-                    { id: "highlight", display: "🖍", style: "background-color: yellow;" },
-                    { id: "shadow", display: "S", style: "text-shadow: 2px 2px 4px rgba(0,0,0,0.5);" },
-                    { id: "outline", display: "O", style: "-webkit-text-stroke: 1px black; color: transparent;" },
-
-                    // Quick font families
-                    { id: "serif", display: "T", style: "font-family: 'Times New Roman', serif;" },
-                    { id: "sans_serif", display: "S", style: "font-family: Arial, sans-serif;" },
-                    { id: "monospace", display: "M", style: "font-family: monospace;" },
-
-                    // Quick spacing
-                    { id: "wide_spacing", display: "↔", style: "letter-spacing: 2px;" },
-                    { id: "tight_spacing", display: "↔", style: "letter-spacing: -1px;" },
-                    { id: "double_line", display: "↕", style: "line-height: 2;" }
-                ];
-
-                break;
-
-            default:
-                break;
-        }
-        if (element.children.length === 0) {
-            options = [
-                // delete
-                { id: "left_align", display: "🗑️", style: "display: none;" },
-
-                // Alignment
-                { id: "left_align", display: "⯇", style: "text-align: left;" },
-                { id: "center_align", display: "≡", style: "text-align: center;" },
-                { id: "right_align", display: "⯈", style: "text-align: right;" },
-                { id: "justify", display: "≋", style: "text-align: justify;" },
-
-                // Font style
-                { id: "bold", display: "B", style: "font-weight: bold;" },
-                { id: "italic", display: "I", style: "font-style: italic;" },
-                { id: "underline", display: "U", style: "text-decoration: underline;" },
-                { id: "strike", display: "S̶", style: "text-decoration: line-through;" },
-
-                // Transform
-                { id: "uppercase", display: "A↑", style: "text-transform: uppercase;" },
-                { id: "lowercase", display: "a↓", style: "text-transform: lowercase;" },
-                { id: "capitalize", display: "Aa", style: "text-transform: capitalize;" },
-
-                // Effects
-                { id: "highlight", display: "🖍", style: "background-color: yellow;" },
-                { id: "shadow", display: "S", style: "text-shadow: 2px 2px 4px rgba(0,0,0,0.5);" },
-                { id: "outline", display: "O", style: "-webkit-text-stroke: 1px black; color: transparent;" },
-
-                // Quick font families
-                { id: "serif", display: "T", style: "font-family: 'Times New Roman', serif;" },
-                { id: "sans_serif", display: "S", style: "font-family: Arial, sans-serif;" },
-                { id: "monospace", display: "M", style: "font-family: monospace;" },
-
-                // Quick spacing
-                { id: "wide_spacing", display: "↔", style: "letter-spacing: 2px;" },
-                { id: "tight_spacing", display: "↔", style: "letter-spacing: -1px;" },
-                { id: "double_line", display: "↕", style: "line-height: 2;" }
-            ];
-        } else {
-            options = [
-                { id: "add_new_element", display: "+", style: "align-items: left; justify-content: left" },
-                { id: "left_align", display: "🗑️", style: "display: none;" },
-                ...options
-            ]
-        }
-
-        options = [
-            { id: "left_align", display: "🗑️", style: "display: none;" },
-            ...options
-        ]
 
         // window.parent.postMessage({index: ${this.index}, location: "herosection:${elementId}",option: "add_new_element", elementId: "component_0001"})'
 
         return `
         <div class="production_object_options" style="isolation: isolate;">
+
+            ${(element.children.length === 0) ? `
+            <div  line-height: 1" class="production_object_option" onclick='
+                event.stopPropagation();
+                window.parent.postMessage({index: ${this.index}, location: "herosection:${elementId}",option: "enable_text_editing", elementId: "component_0001"})'
+            '>i</div>
+                ` : ``}
+
+            ${(element.tag === "img") ? `
+            <div  line-height: 1" class="production_object_option" onclick='
+                event.stopPropagation();
+                window.parent.postMessage({index: ${this.index}, location: "herosection:${elementId}",option: "enable_image_editing", elementId: "component_0001"})'
+            '>l</div>
+                ` : ``}
+
+
             <div  line-height: 1" class="production_object_option" onclick='
                 event.stopPropagation();
                 window.parent.postMessage({index: ${this.index}, location: "herosection:${elementId}",option: "make_editor_visible", elementId: "component_0001"})'
             '>e</div>
+
+            <div  line-height: 1" class="production_object_option" onclick='
+                event.stopPropagation();
+                window.parent.postMessage({index: ${this.index}, location: "herosection:${elementId}",option: "add_background_image", elementId: "component_0001"})'
+            '>B</div>
+
+            
             
             <div  line-height: 1" class="production_object_option" onclick='
                 event.stopPropagation();
                 window.parent.postMessage({index: ${this.index}, location: "herosection:${elementId}",option: "", style: "display: none"})'
             '>🗑️</div>
+
+                        
+            <div  line-height: 1" class="production_object_option" onclick='
+                event.stopPropagation();
+                window.parent.postMessage({index: ${this.index}, location: "herosection:${elementId}",option: "clone_element:${elementId}"})'
+            '>
+            C
+            </div>
 
             <div  line-height: 1" class="production_object_option" onclick='
                 event.stopPropagation();
@@ -701,7 +643,9 @@ class HtmlString {
             ${options.map(option => `
                 <div style="${option.style} line-height: 1" class="production_object_option" onclick='
                     window.parent.postMessage({index: ${this.index}, location: "herosection:${elementId}",option: "", style: "${option.style}"})'
-                '>${option.display}</div>
+                '
+
+                >${option.display}</div>
             `).join('')}
             
         </div>
@@ -744,7 +688,7 @@ class HtmlString {
 
             // Add ID
             if (element.id) {
-                elementStr += ` id="${element.id}"`;
+                elementStr += ` id="${element.id}${this.htmlMap.uid}"`;
             }
 
             if (element.id) {
@@ -753,20 +697,31 @@ class HtmlString {
 
             // Add classes
             if (element.classNames) {
-                elementStr += ` class="production_container ${element.classNames}"`;
+                let classNamesUid = element.classNames.split(" ").map(cls => { return cls + this.htmlMap.uid }).join(" ");
+                elementStr += ` class="production_container ${classNamesUid}"`;
             }
 
             // Add style (assuming this.getStyle exists in the calling context)
             if (this.getStyle) {
-                elementStr += ` style="${this.getStyle(element.id)}"`;
+                elementStr += ` style="${this.getStyle(element.id)} ${element.backgroundUrl ? `background-image: url(${element.backgroundUrl}); background-size: cover; background-position: center;` : ''}"`;
             }
 
             // Add onclick for interactive elements
             const clickableElements = ['button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'header', 'a', 'nav'];
-            if (clickableElements.includes(element.tag) && element.id && (element.id !== "main_container")) {
-                const location = parentId ? `${parentId}:${element.id}` : element.id;
-                elementStr += ` onclick='event.stopPropagation(); window.parent.postMessage({index: ${this.index}, location: "${location}", option: "setactiveelement"})'`;
+
+            if (element.children.find(val => val.src)) {
+                if (clickableElements.includes(element.tag) && element.id && (element.id !== "main_container")) {
+                    const location = parentId ? `${parentId}:${element.id}` : element.id;
+                    elementStr += ` onclick='event.stopPropagation(); window.parent.postMessage({index: ${this.index}, location: "${location}", option: "setactiveelement"}); window.parent.postMessage({index: ${this.index}, location: "herosection:${element.children.find((val) => { return (val.src) })?.id}",option: "enable_image_editing", elementId: "component_0001"})'`;
+                }
             }
+            else {
+                if (clickableElements.includes(element.tag) && element.id && (element.id !== "main_container")) {
+                    const location = parentId ? `${parentId}:${element.id}` : element.id;
+                    elementStr += ` onclick='event.stopPropagation(); window.parent.postMessage({index: ${this.index}, location: "${location}", option: "setactiveelement"});'`;
+                }
+            }
+
 
             if (element.tag === "img") {
                 elementStr += `src="${element.src}"`
@@ -816,100 +771,7 @@ class Element {
 
 
         // properties to generate html
-        this.htmlMap = [
-            [
-                {
-                    tag: "div",
-                    id: "main_container",
-                    classNames: "production_container _0001",
-                    children: [
-                        {
-                            tag: "div",
-                            id: "hero_image",
-                            classNames: "production_container hero-image",
-                            innerText: "",
-                            children: [
-                                {
-                                    tag: "div",
-                                    id: "hero_text",
-                                    classNames: "production_container hero-text",
-                                    innerText: "",
-                                    children: [
-                                        { tag: "h1", id: "hero_title", classNames: "production_container hero-title", innerText: "Welcome To Prometheus", children: [] },
-                                        { tag: "div", id: "hero_subtitle", classNames: "production_container hero-subtitle", innerText: "Drag and Drop solution for your own sites", children: [] },
-                                        { tag: "button", id: "hero_button", classNames: "production_container hero-button", innerText: "start", children: [] }
-                                    ]
-                                }
-                            ]
-
-                        }
-                    ]
-                }
-            ]
-            ,
-            [
-                {
-                    "tag": "div",
-                    "classNames": "production_container hero",
-                    "id": "hero_section",
-                    "children": [
-                        {
-                            "tag": "div",
-                            "classNames": "production_container hero-content",
-                            "id": "hero_content",
-                            "children": [
-                                {
-                                    "tag": "h1",
-                                    "classNames": "production_container",
-                                    "id": "hero_header",
-                                    "innerText": "Revolutionize Your Workflow",
-                                    "attributes": {
-                                        "contenteditable": "true",
-                                        "onclick": `window.parent.postMessage({index: ${this.index}, location: 'herosection:hero_header', option: 'setactiveelement'})`
-                                    },
-                                    "children": []
-                                },
-                                {
-                                    "tag": "p",
-                                    "classNames": "production_container",
-                                    "id": "hero_para",
-                                    "innerText": "Boost productivity with our all-in-one solution. Seamless integration, powerful features, and intuitive design.",
-                                    "attributes": {
-                                        "contenteditable": "true",
-                                        "onclick": `window.parent.postMessage({index: ${this.index}, location: 'herosection:hero_para', option: 'setactiveelement'})`
-                                    },
-                                    "children": []
-                                },
-                                {
-                                    "tag": "button",
-                                    "classNames": "production_container",
-                                    "id": "hero_button",
-                                    "innerText": "Get Started",
-                                    "attributes": {
-                                        "onclick": `window.parent.postMessage({index: ${this.index}, location: 'herosection:hero_button', option: 'setactiveelement'})`
-                                    },
-                                    "children": []
-                                }
-                            ]
-                        },
-                        {
-                            "tag": "div",
-                            "classNames": "production_container hero-image",
-                            "id": "hero_image_div",
-                            "children": [
-                                {
-                                    "tag": "img",
-                                    "id": "hero_image",
-                                    "src": "Components//UiImage.png",
-                                    "alt": "Product Preview",
-                                    "children": []
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        ]
+        this.htmlMap = htmlMap;
         this.dynamicHtml = new HtmlString(htmlMap);
         this.style = this.dynamicHtml.style;
 
@@ -986,7 +848,7 @@ class Element {
                 console.log("setting active element in element object");
                 this.focusElement = location[1];
                 console.log(this.focusElement)
-                
+
                 return;
             }
         }
@@ -1010,6 +872,7 @@ class Element {
             if (operand === "font_change") {
                 this.dynamicHtml.assignStyle(this.focusElement, "font-family: " + value)
             }
+
 
         }
 
@@ -1128,6 +991,70 @@ class Element {
         this.reGenHtmlStr();
         return this.htmlString;
     }
+
+
+    genProductionHtml(data, sectionId = 'herosection') {
+        // Recursive function to build HTML from the map
+        const buildElement = (element, parentId = '') => {
+            if (element.tag === "p") {
+                element.tag = "div"
+            }
+            let elementStr = `<${element.tag}`;
+
+            // Add ID
+            if (element.id) {
+                elementStr += ` id="${element.id}${this.htmlMap.uid}"`;
+            }
+
+            if (element.id) {
+                elementStr += ` contenteditable="true"`;
+            }
+
+            // Add classes
+            if (element.classNames) {
+                let classNamesUid = element.classNames.split(" ").map(cls => { return cls + this.htmlMap.uid }).join(" ");
+                elementStr += ` class="production_container ${classNamesUid}"`;
+            }
+
+            // Add style (assuming this.getStyle exists in the calling context)
+            if (this.getStyle) {
+                elementStr += ` style="${this.getStyle(element.id)} ${element.backgroundUrl ? `background-image: url(${element.backgroundUrl}); background-size: cover; background-position: center;` : ''}"`;
+            }
+
+            // Add onclick for interactive elements
+            // const clickableElements = ['button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'header', 'a', 'nav'];
+            // if (clickableElements.includes(element.tag) && element.id && (element.id !== "main_container")) {
+            //     const location = parentId ? `${parentId}:${element.id}` : element.id;
+            //     elementStr += ` onclick='event.stopPropagation(); window.parent.postMessage({index: ${this.index}, location: "${location}", option: "setactiveelement"})'`;
+            // }
+
+            if (element.tag === "img") {
+                elementStr += `src="${element.src}"`
+            }
+
+            elementStr += '>';
+
+            // elementStr += this.getOptions(element);
+
+            // Add inner text
+            if (element.innerText) {
+                elementStr += element.innerText;
+            }
+
+            // Process children
+            if (element.children && element.children.length > 0) {
+                element.children.forEach(child => {
+                    elementStr += buildElement(child, element.id || parentId);
+                });
+            }
+
+            elementStr += `</${element.tag}>`;
+            return elementStr;
+        };
+
+        // Generate the full HTML string
+        return `${buildElement(this.htmlMap)}`;
+    }
 }
 
 
@@ -1153,8 +1080,119 @@ class HeroSection extends Element {
         // If you need to re-render after state change:
     }
 
+
+    findElement(elementId) {
+        function checkElement(element) {
+            if (element.id === elementId) {
+                return element;
+            }
+            element.children.forEach((child) => {
+                console.log(child.id);
+                return checkElement(child);
+            });
+        }
+        return checkElement(this.htmlMap);
+    }
+
+    changeText(elementId, newtext) {
+        function checkElement(element) {
+            // if((element.id+this.htmlMap.uid) === elementId){
+            //     console.log("element found")
+            //     console.log(element);
+            //     return element;
+            // }
+            console.log(element);
+            if (element.id === elementId) {
+                console.log("element found-----------------------------------------------")
+                console.log(element);
+                element.innerText = newtext;
+                return;
+            }
+            element.children.forEach((child) => {
+                console.log(child.id);
+                return checkElement(child);
+            });
+        }
+        checkElement(this.htmlMap);
+    }
+
+    updateText(elementId, newtext) {
+        alert("updating text in herosection" + JSON.stringify(elementId) + newtext)
+        console.log("updating text in herosection")
+        // findElement(this.htmlMap);
+        console.log(this.findElement(elementId))
+        this.changeText(elementId, newtext);
+        console.log(elementId, newtext)
+    }
+
+
+
+    setBackgroundUrl(elementId, newtext) {
+        function checkElement(element) {
+            // if((element.id+this.htmlMap.uid) === elementId){
+            //     console.log("element found")
+            //     console.log(element);
+            //     return element;
+            // }
+            console.log(element);
+            if (element.id === elementId) {
+                console.log("element found-----------------------------------------------")
+                console.log(element);
+                element.backgroundUrl = newtext;
+                return;
+            }
+            element.children.forEach((child) => {
+                console.log(child.id);
+                return checkElement(child);
+            });
+        }
+        checkElement(this.htmlMap);
+    }
+
+    addBackgroundImg(elementId, newUrl) {
+        console.log("setting background img")
+        this.setBackgroundUrl(elementId,newUrl);
+    }
+
+
+
+
+    changeImgUrl(elementId, newUrl) {
+        function checkElement(element) {
+            // if((element.id+this.htmlMap.uid) === elementId){
+            //     console.log("element found")
+            //     console.log(element);
+            //     return element;
+            // }
+            console.log(element);
+            if (element.id === elementId) {
+                console.log("element found-----------------------------------------------")
+                console.log(element);
+                element.src = newUrl;
+                return;
+            }
+            element.children.forEach((child) => {
+                console.log(child.id);
+                return checkElement(child);
+            });
+        }
+        checkElement(this.htmlMap);
+    }
+
+    updateImgUrl(elementId, newUrl) {
+        alert("updating url in herosection" + JSON.stringify(elementId) + newUrl)
+        console.log("updating url in herosection")
+        // findElement(this.htmlMap);
+        // console.log(this.findElement(elementId))
+        this.changeImgUrl(elementId, newUrl);
+        console.log(elementId, newUrl)
+    }
+
     handleOptionSelect(data) {
 
+
+        console.log("request recieved at the element ");
+        console.log(data);
 
 
 
@@ -1215,6 +1253,8 @@ class HeroSection extends Element {
             let operand = option.split(":")[0];
             let value = option.split(":")[1];
 
+            console.log(operand + "," + value);
+
             if (operand === "main_container") {
                 if (value === "left_align") {
                     this.dynamicHtml.assignStyle("hero_image", "justify-content: left")
@@ -1230,6 +1270,85 @@ class HeroSection extends Element {
 
             if (operand === "font_change") {
                 this.dynamicHtml.assignStyle(this.focusElement, "font-family: " + value)
+            }
+
+
+            if (operand === "clone_element") {
+
+                console.log("clone function activated");
+                console.log(this.htmlMap)
+
+                // function getCopy(ele) {
+                //     let copy = { ...ele };
+
+                //     function genUniqueId(element) {
+                //         if (element.children && element.children.length === 0) {
+                //             return;
+                //         }
+                //         element.children.forEach((child) => {
+                //             child.id = child.id + "_" + Date.now();
+                //         })
+                //     }
+
+                //     genUniqueId(copy);
+                //     console.log(copy)
+                //     return copy;
+
+                // }
+
+                function getUniqueId(ele) {
+                    if (ele.children.length === 0) {
+                        return;
+                    }
+                    ele.children.forEach((child) => {
+                        child.id = child.id + "_" + Date.now();
+                        getUniqueId(child);
+                    })
+                }
+
+                function deepClone(obj) {
+                    return JSON.parse(JSON.stringify(obj));
+                }
+
+                function cloneElement(parent, id) {
+                    // console.log("inside itt ")
+                    // console.log(parent)
+                    // console.log(id);
+                    parent.children.forEach((ele) => {
+                        console.log(ele.id);
+                        if (ele.id === id) {
+                            // console.log("parent found ")
+                            // console.log("parent befoer cloning element")
+                            // console.log(parent);
+
+                            let copyEle = deepClone(ele);
+                            getUniqueId(copyEle);
+
+                            copyEle.id = copyEle.id + "_" + Date.now();
+
+
+                            parent.children = [...parent.children, copyEle];
+                            // console.log("after cloning element")
+                            // console.log(parent);
+                        }
+                        else if (ele.children.length === 0) {
+                            return;
+                        }
+                        else {
+                            cloneElement(ele, id)
+                        }
+                    })
+                }
+
+                cloneElement(this.htmlMap, value)
+
+
+                // console.log(id)
+
+
+
+
+
             }
 
         }
@@ -1257,19 +1376,8 @@ class HeroSection extends Element {
 
 
         return <>
-            <div className="text_toolbar">
-                <div class="toolbar" style={{
-                    display: 'flex',
-                    flexWrap: 'nowrap',
-                    overflowX: 'auto',
-                    whiteSpace: 'nowrap',
-                    padding: '10px',
-                    gap: '8px',
-                    alignItems: 'center',
-                    height: "2vh"
-                }}>
-                    Welcome To Qreate
-                </div>
+            <div className="text_toolbar" style={{ display: "none" }}>
+
             </div>
             {/* {JSON.stringify(this)} */}
 
