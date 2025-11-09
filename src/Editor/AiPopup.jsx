@@ -17,7 +17,7 @@ const AiPopup = () => {
     async function getAi(promptParam) {
         try {
             const res = await fetch(
-                "https://qurate-backend.vercel.app//genaipage",
+                "https://qurate-backend.vercel.app/genaipage",
                 {
                     method: 'POST',
                     headers: {
