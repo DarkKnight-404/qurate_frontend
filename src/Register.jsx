@@ -36,7 +36,7 @@ const Register = () => {
         e.preventDefault();
 
         let xml = new XMLHttpRequest();
-        xml.open("POST", "http://localhost:9600/register");
+        xml.open("POST", "https://qurate-backend.vercel.app/register");
         xml.withCredentials = true;
         xml.send(JSON.stringify(formData))
         xml.onload = () => {
