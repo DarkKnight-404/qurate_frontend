@@ -1180,7 +1180,7 @@ class HeroSection extends Element {
     }
 
     updateImgUrl(elementId, newUrl) {
-        alert("updating url in herosection" + JSON.stringify(elementId) + newUrl)
+        // alert("updating url in herosection" + JSON.stringify(elementId) + newUrl)
         console.log("updating url in herosection")
         // findElement(this.htmlMap);
         // console.log(this.findElement(elementId))

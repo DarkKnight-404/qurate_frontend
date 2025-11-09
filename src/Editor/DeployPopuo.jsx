@@ -33,9 +33,10 @@ const DeployPopup = ({
     function deploySite() {
         let xml = new XMLHttpRequest();
         xml.open("POST", "https://qurate-backend.vercel.app/createnewpage");
+        xml.withCredentials = true;
         xml.send(JSON.stringify({
             htmlCode: htmlString,
-            userId: "rohit314159",
+            userId: JSON.parse(localStorage.qurate_user).email,
             title: title,
             description: description
         }));
