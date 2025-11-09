@@ -50,7 +50,7 @@ const Login = () => {
 
 
         let xml = new XMLHttpRequest();
-        xml.open("POST", "http://localhost:9600/login");
+        xml.open("POST", "https://qurate-backend.vercel.app/login");
         xml.withCredentials = true;
         xml.send(JSON.stringify({
             email: email,
