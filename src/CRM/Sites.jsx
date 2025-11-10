@@ -148,7 +148,7 @@ const Sites = () => {
         e.stopPropagation();
         setQrPopup({
             show: true,
-            url: (`https://qurate-backend.vercel.app/sitebypageid?pageId=`+site),
+            url: (`https://qurate-backend.vercel.app/sitebypageid?pageId=`+site.id),
             siteName: site.name
         });
     };
