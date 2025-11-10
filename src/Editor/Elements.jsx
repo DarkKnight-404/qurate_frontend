@@ -774,7 +774,7 @@ class Element {
         this.htmlMap = htmlMap;
         this.dynamicHtml = new HtmlString(htmlMap);
         this.style = this.dynamicHtml.style;
-
+        this.getStyle = this.dynamicHtml.getStyle;
 
         // props and methods to handle live session
         this.focusElement = null;
@@ -1018,6 +1018,7 @@ class Element {
 
             // Add style (assuming this.getStyle exists in the calling context)
             if (this.getStyle) {
+                console.log()
                 elementStr += ` style="${this.getStyle(element.id)} ${element.backgroundUrl ? `background-image: url(${element.backgroundUrl}); background-size: cover; background-position: center;` : ''}"`;
             }
 

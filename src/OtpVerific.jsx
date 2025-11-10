@@ -122,7 +122,7 @@ const OtpVerific = ({ onVerificationSuccess }) => {
 
         try {
             let xml = new XMLHttpRequest();
-            xml.open("POST", "http://localhost:9600/otpverific");
+            xml.open("POST", "https://qurate-backend.vercel.app/otpverific");
             xml.withCredentials = true;
             xml.send(JSON.stringify({
                 email: userEmail,
