@@ -148,7 +148,7 @@ const Sites = () => {
         e.stopPropagation();
         setQrPopup({
             show: true,
-            url: site.url,
+            url: (`https://qurate-backend.vercel.app/sitebypageid?pageId=`+site),
             siteName: site.name
         });
     };
@@ -425,7 +425,7 @@ const QrPopup = ({ url, siteName, onClose, generateQrCodeUrl }) => (
             </div>
             <div className="qr-popup-body">
                 <img
-                    src={generateQrCodeUrl(url)}
+                    src={`https://api.qrserver.com/v1/create-qr-code/?data=${url}&size=100x100`}
                     alt={`QR Code for ${siteName}`}
                     className="qr-popup-image"
                 />
